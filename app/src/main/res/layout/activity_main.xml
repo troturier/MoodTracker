@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:background="@color/light_sage"
         android:visibility="visible">
-
         <ImageView
             android:id="@+id/happySmiley_Iv"
             android:layout_width="wrap_content"
@@ -23,4 +22,5 @@
             android:contentDescription="@string/happy_smiley_contentDesc"
             app:srcCompat="@mipmap/smiley_happy" />
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
