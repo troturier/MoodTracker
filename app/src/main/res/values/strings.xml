@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MoodTracker</string>
     <string name="happy_smiley_contentDesc">Happy Smiley</string>
+    <string name="historyButton">History Button</string>
+    <string name="noteAddButton">Note Add Button</string>
+    <string name="smileyFragment">Smiley</string>
 </resources>

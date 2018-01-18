@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="thibault_roturier.moodtracker.MainActivity">
 
+    <!--
     <RelativeLayout
         android:id="@+id/base_Rl"
         android:layout_width="match_parent"
@@ -21,6 +22,50 @@
             android:adjustViewBounds="false"
             android:contentDescription="@string/happy_smiley_contentDesc"
             app:srcCompat="@mipmap/smiley_happy" />
+    </RelativeLayout>
+    -->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <fr.castorflex.android.verticalviewpager.VerticalViewPager
+            android:id="@+id/vpPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </fr.castorflex.android.verticalviewpager.VerticalViewPager>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/noteAdd_Ib"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/history_Ib"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="29dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/noteAddButton"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_note_add_black" />
+
+        <ImageButton
+            android:id="@+id/history_Ib"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="33dp"
+            android:layout_marginEnd="32dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/historyButton"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_history_black" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
