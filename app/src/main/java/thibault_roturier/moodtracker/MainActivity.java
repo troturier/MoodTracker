@@ -1,10 +1,14 @@
 package thibault_roturier.moodtracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -17,14 +21,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         VerticalViewPager vpPager = findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
 
         vpPager.setCurrentItem(3);
         // vpPager.setPageTransformer(true, new VerticalPageTransformer());
+
+    }
+
+    // Method to display an input text dialog box when the "Add Note" button is clicked
+    public void commentInput (View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Commentaire");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String m_Text = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {

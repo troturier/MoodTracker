@@ -39,6 +39,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/base_RelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -52,6 +53,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/noteAddButton"
             android:scaleType="fitCenter"
+            android:onClick="commentInput"
             app:srcCompat="@mipmap/ic_note_add_black" />
 
         <ImageButton
