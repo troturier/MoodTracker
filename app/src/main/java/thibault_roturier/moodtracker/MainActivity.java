@@ -1,32 +1,71 @@
 package thibault_roturier.moodtracker;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+    DBHandler db = new DBHandler(this);
+    Date date = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        VerticalViewPager vpPager = findViewById(R.id.vpPager);
+        final VerticalViewPager vpPager = findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
-
         vpPager.setCurrentItem(3);
 
+        // If this is the first time the application is launched today, we create a new line in the database
+        if(db.getMood(date) == null) {
+            Mood mood = new Mood(date, vpPager.getCurrentItem());
+            db.addMood(mood);
+        }
+
+        // We define the state of mood that is displayed on the one that has already been registered in database
+        vpPager.setCurrentItem(db.getMood(date).getMoodState());
+
+        // We update the state of mood when the user performs a swipe on the screen
+        vpPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            Mood mood = db.getMood(date);
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mood.setMoodState(position);
+                db.updateMood(mood);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mood.setMoodState(position);
+                db.updateMood(mood);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     /**
@@ -36,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
     public void commentInput (View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Commentaire");
+        final Mood mood = db.getMood(date);
 
         // Set up the input
         final EditText input = new EditText(this);
+        input.setText(mood.getComment());
         builder.setView(input);
 
         // Set up the buttons
@@ -46,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
+                mood.setComment(m_Text);
+                // Update the comment of the mood in the database
+                db.updateMood(mood);
             }
         });
         builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
