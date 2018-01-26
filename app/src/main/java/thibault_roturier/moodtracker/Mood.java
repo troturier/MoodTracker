@@ -18,6 +18,10 @@ public class Mood {
         this.comment = commentP;
     }
 
+    public Mood() {
+
+    }
+
     public Date getDate() {
         return date;
     }
