@@ -74,16 +74,14 @@ public class DBHandler extends SQLiteOpenHelper {
         @SuppressLint("Recycle") Cursor cursor = db.query(TABLE_MOOD, new String[] { KEY_DATE,
                         KEY_MOODSTATE, KEY_COMMENT }, KEY_DATE + "=?",
                 new String[] { format.format(date) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
         Mood mood = null;
+        if (cursor.moveToFirst()){
         try {
-            assert cursor != null;
             mood = new Mood(format.parse(cursor.getString(0)),
                     cursor.getInt(1), cursor.getString(2));
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }}
         return mood;
     }
 
@@ -131,17 +129,16 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      * Updating a mood in the database
      * @param mood Mood object
-     * @return boolean
      */
-    public int updateMood(Mood mood) {
+    public void updateMood(Mood mood) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, format.format(mood.getDate()));
         values.put(KEY_MOODSTATE, mood.getMoodState());
         values.put(KEY_COMMENT, mood.getComment());
         // updating row
-        return db.update(TABLE_MOOD, values, KEY_DATE + " = ?",
-                new String[]{ format.format(mood.getDate()) });
+        db.update(TABLE_MOOD, values, KEY_DATE + " = ?",
+                new String[]{format.format(mood.getDate())});
     }
 
     /**
