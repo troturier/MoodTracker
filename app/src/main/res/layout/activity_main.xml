@@ -6,25 +6,6 @@
     android:layout_height="match_parent"
     tools:context="thibault_roturier.moodtracker.MainActivity">
 
-    <!--
-    <RelativeLayout
-        android:id="@+id/base_Rl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_sage"
-        android:visibility="visible">
-        <ImageView
-            android:id="@+id/happySmiley_Iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="false"
-            android:contentDescription="@string/happy_smiley_contentDesc"
-            app:srcCompat="@mipmap/smiley_happy" />
-    </RelativeLayout>
-    -->
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

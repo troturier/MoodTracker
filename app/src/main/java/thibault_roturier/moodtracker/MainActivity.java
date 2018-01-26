@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
         vpPager.setAdapter(adapterViewPager);
 
         vpPager.setCurrentItem(3);
-        // vpPager.setPageTransformer(true, new VerticalPageTransformer());
 
     }
 
-    // Method to display an input text dialog box when the "Add Note" button is clicked
+    /**
+     * Displays an alert dialog box containing an EditText object
+     * @param view View in which the alert dialog box should appear
+     */
     public void commentInput (View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Commentaire");
@@ -56,20 +58,27 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public static class MyPagerAdapter extends FragmentPagerAdapter {
+   public static class MyPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 5;
 
         MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
         }
 
-        // Returns total number of pages.
+        /**
+         * Returns total number of pages.
+         * @return int
+         */
         @Override
         public int getCount() {
             return NUM_ITEMS;
         }
 
-        // Returns the fragment to display for a particular page.
+        /**
+         * Returns the fragment to display for a particular page.
+         * @param position Position of the Fragment in the PagerAdapter
+         * @return Fragment
+         */
         @Override
         public Fragment getItem(int position) {
             switch (position) {

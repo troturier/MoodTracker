@@ -10,12 +10,20 @@ import android.widget.ImageView;
 /**
  * Created by Thibault on 18/01/2018.
  * Project for the Ministry of Happiness and Good Mood (OpenClassrooms).
+ *
+ * Class allowing to create a new smiley screen fragment for the main activity pager
  */
 
 public class FragmentSmileyScreen extends Fragment {
     private int image;
     private int background;
 
+    /**
+     * Creates a new instance of a smiley screen fragment which is composed of a background colour and a picture
+     * @param background Background color
+     * @param resImage Image from resource files to be displayed in the foreground
+     * @return FragmentSmileyScreen
+     */
     public static FragmentSmileyScreen newInstance(int background, int resImage) {
         FragmentSmileyScreen fragment = new FragmentSmileyScreen();
         Bundle args = new Bundle();
@@ -25,7 +33,10 @@ public class FragmentSmileyScreen extends Fragment {
         return fragment;
     }
 
-
+    /**
+     * Initializes a new smiley screen fragment
+     * @param savedInstanceState Bundle object containing the activity's previously saved state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +44,13 @@ public class FragmentSmileyScreen extends Fragment {
         background = getArguments().getInt("background");
     }
 
+    /**
+     * Builds the view corresponding to the specified smiley screen fragment
+     * @param inflater LayoutInflater instance
+     * @param container ViewGroup instance
+     * @param savedInstanceState Bundle object containing the activity's previously saved state
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
