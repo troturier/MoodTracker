@@ -18,6 +18,11 @@ public class Mood {
         this.comment = commentP;
     }
 
+    public Mood(Date dateP, int moodStateP){
+        this.date = dateP;
+        this.moodState = moodStateP;
+    }
+
     public Mood() {
 
     }
