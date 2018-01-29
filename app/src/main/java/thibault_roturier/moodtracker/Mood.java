@@ -3,51 +3,63 @@ package thibault_roturier.moodtracker;
 import java.util.Date;
 
 /**
- * Created by Thibault on 26/01/2018.
- * Project for the Ministry of Happiness and Good Mood (OpenClassrooms).
+ * Model class for creating and manipulating a mood object
  */
-
-public class Mood {
+class Mood {
     private Date date;
     private int moodState;
     private String comment;
 
-    public Mood(Date dateP, int moodStateP, String commentP){
+    /**
+     * Constructor of the mood class taking into account all the attributes
+     * @param dateP Date of the mood (yyyy/MM/dd)
+     * @param moodStateP State of the mood
+     * @param commentP Comment related to the mood
+     */
+    Mood(Date dateP, int moodStateP, String commentP){
         this.date = dateP;
         this.moodState = moodStateP;
         this.comment = commentP;
     }
 
-    public Mood(Date dateP, int moodStateP){
+    /**
+     * Constructor of the mood class not taking into account comment
+     * @param dateP Date of the mood (yyyy/MM/dd)
+     * @param moodStateP State of the mood
+     */
+    Mood(Date dateP, int moodStateP){
         this.date = dateP;
         this.moodState = moodStateP;
     }
 
-    public Mood() {
+    /**
+     * Constructor of the mood class to create an empty object
+     */
+    Mood() {
 
     }
 
-    public Date getDate() {
+    Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    void setDate(Date date) {
         this.date = date;
     }
 
-    public int getMoodState() {
+    int getMoodState() {
         return moodState;
     }
 
-    public void setMoodState(int moodState) {
+    void setMoodState(int moodState) {
         this.moodState = moodState;
     }
 
-    public String getComment() {
+    String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    void setComment(String comment) {
         this.comment = comment;
     }
 }

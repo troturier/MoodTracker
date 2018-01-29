@@ -8,12 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 /**
- * Created by Thibault on 18/01/2018.
- * Project for the Ministry of Happiness and Good Mood (OpenClassrooms).
- *
- * Class allowing to create a new smiley screen fragment for the main activity pager
+ * Class to create a new pager fragment to display a background color and a smiley
  */
-
 public class FragmentSmileyScreen extends Fragment {
     private int image;
     private int background;
