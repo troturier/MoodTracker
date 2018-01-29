@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     DBHandler db = new DBHandler(this);
     Date date = new Date();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,29 +43,30 @@ public class MainActivity extends AppCompatActivity {
         vpPager.setAdapter(adapterViewPager);
         vpPager.setCurrentItem(3);
 
+
         // If this is the first time the application is launched today, we create a new line in the database
         if(db.getMood(date) == null) {
             Mood mood = new Mood(date, vpPager.getCurrentItem());
             db.addMood(mood);
         }
+        final Mood CurrMood = db.getMood(date);
 
         // We define the state of mood that is displayed on the one that has already been registered in database
-        vpPager.setCurrentItem(db.getMood(date).getMoodState());
+        vpPager.setCurrentItem(CurrMood.getMoodState());
 
         // We update the state of mood when the user performs a swipe on the screen
         vpPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            Mood mood = db.getMood(date);
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mood.setMoodState(position);
-                db.updateMood(mood);
+                CurrMood.setMoodState(position);
+                db.updateMood(CurrMood);
             }
 
             @Override
             public void onPageSelected(int position) {
-                mood.setMoodState(position);
-                db.updateMood(mood);
+                CurrMood.setMoodState(position);
+                db.updateMood(CurrMood);
             }
 
             @Override
