@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Start activity_history
+     * @param view Context
+     */
     public void showHistory(View view){
         Intent intent = new Intent(MainActivity.this, History.class);
         startActivity(intent);
