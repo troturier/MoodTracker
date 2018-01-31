@@ -3,24 +3,18 @@ package thibault_roturier.moodtracker;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -28,10 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
     @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
     DBHandler db = new DBHandler(this);
     Date date = new Date();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void showHistory(View view){
+        Intent intent = new Intent(MainActivity.this, History.class);
+        startActivity(intent);
     }
 
     /**
@@ -149,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
 
 

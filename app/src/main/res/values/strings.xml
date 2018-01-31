@@ -4,4 +4,10 @@
     <string name="historyButton">History Button</string>
     <string name="noteAddButton">Note Add Button</string>
     <string name="smileyFragment">Smiley</string>
+    <string name="a_week_ago">Il y a une semaine</string>
+    <string name="yesterday">Hier</string>
+    <string name="before_yesterday">Avant-hier</string>
+    <string name="spc_days">\u0020jours</string>
+    <string name="days_ago_1">Il y a\u0020</string>
+    <string name="comment_button">Comment button</string>
 </resources>
