@@ -144,7 +144,8 @@ public class History extends AppCompatActivity {
                 history_item_Tv.setText(R.string.a_week_ago);
                 break;
             default:
-                history_item_Tv.setText(getString(R.string.days_ago_1) + toIntExact(daysDiff) + getString(R.string.spc_days));
+                String str = getString(R.string.days_ago_1) + toIntExact(daysDiff) + getString(R.string.spc_days);
+                history_item_Tv.setText(str);
                 break;
         }
 
