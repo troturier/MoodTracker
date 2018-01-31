@@ -113,6 +113,34 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Retrieves the last 8 moods of the database
+     * @return A list of 8 Mood objects
+     */
+    List<Mood> getLastMoods() {
+        List<Mood> moodList = new ArrayList<>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_MOOD + " ORDER BY date DESC " + "LIMIT 8";
+        SQLiteDatabase db = this.getWritableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Mood mood = new Mood();
+                try {
+                    mood.setDate(format.parse(cursor.getString(0)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                mood.setMoodState(cursor.getInt(1));
+                mood.setComment(cursor.getString(2));
+                // Adding mood to list
+                moodList.add(mood);
+            } while (cursor.moveToNext());
+        }
+        return moodList;
+    }
+
+    /**
      * Updating a mood in the database
      * @param mood Mood object
      */
