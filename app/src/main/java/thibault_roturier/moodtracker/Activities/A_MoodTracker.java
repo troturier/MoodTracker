@@ -1,4 +1,4 @@
-package thibault_roturier.moodtracker;
+package thibault_roturier.moodtracker.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -13,12 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
+import thibault_roturier.moodtracker.Database.DBHandler;
+import thibault_roturier.moodtracker.Models.FragmentSmileyScreen;
+import thibault_roturier.moodtracker.Models.Mood;
+import thibault_roturier.moodtracker.R;
 
-public class MainActivity extends AppCompatActivity {
+public class A_MoodTracker extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
     @SuppressLint("SimpleDateFormat")
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view Context
      */
     public void showHistory(View view){
-        Intent intent = new Intent(MainActivity.this, History.class);
+        Intent intent = new Intent(A_MoodTracker.this, A_History.class);
         startActivity(intent);
     }
 

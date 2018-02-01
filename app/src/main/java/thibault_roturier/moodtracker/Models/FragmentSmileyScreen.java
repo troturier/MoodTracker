@@ -1,4 +1,4 @@
-package thibault_roturier.moodtracker;
+package thibault_roturier.moodtracker.Models;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import thibault_roturier.moodtracker.R;
 
 /**
  * Class to create a new pager fragment to display a background color and a smiley

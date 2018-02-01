@@ -1,11 +1,11 @@
-package thibault_roturier.moodtracker;
+package thibault_roturier.moodtracker.Models;
 
 import java.util.Date;
 
 /**
  * Model class for creating and manipulating a mood object
  */
-class Mood {
+public class Mood {
     private Date date;
     private int moodState;
     private String comment;
@@ -16,7 +16,7 @@ class Mood {
      * @param moodStateP State of the mood
      * @param commentP Comment related to the mood
      */
-    Mood(Date dateP, int moodStateP, String commentP){
+    public Mood(Date dateP, int moodStateP, String commentP){
         this.date = dateP;
         this.moodState = moodStateP;
         this.comment = commentP;
@@ -27,7 +27,7 @@ class Mood {
      * @param dateP Date of the mood (yyyy/MM/dd)
      * @param moodStateP State of the mood
      */
-    Mood(Date dateP, int moodStateP){
+    public Mood(Date dateP, int moodStateP){
         this.date = dateP;
         this.moodState = moodStateP;
     }
@@ -35,31 +35,31 @@ class Mood {
     /**
      * Constructor of the mood class to create an empty object
      */
-    Mood() {
+    public Mood() {
 
     }
 
-    Date getDate() {
+    public Date getDate() {
         return date;
     }
 
-    void setDate(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    int getMoodState() {
+    public int getMoodState() {
         return moodState;
     }
 
-    void setMoodState(int moodState) {
+    public void setMoodState(int moodState) {
         this.moodState = moodState;
     }
 
-    String getComment() {
+    public String getComment() {
         return comment;
     }
 
-    void setComment(String comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 }

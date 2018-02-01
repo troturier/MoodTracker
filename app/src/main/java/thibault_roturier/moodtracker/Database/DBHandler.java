@@ -1,4 +1,4 @@
-package thibault_roturier.moodtracker;
+package thibault_roturier.moodtracker.Database;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import thibault_roturier.moodtracker.Models.Mood;
 
 /**
  * Class required for creation and access to the database
@@ -28,7 +30,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_COMMENT = "comment";
     private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 
-    DBHandler(Context context) {
+    public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -52,7 +54,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Adding a new mood to the database
      * @param mood Mood object
      */
-    void addMood(Mood mood) {
+    public void addMood(Mood mood) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, format.format(mood.getDate())); // Mood date
@@ -68,7 +70,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * @param date Date of the requested mood
      * @return Mood object
      */
-    Mood getMood(Date date) {
+    public Mood getMood(Date date) {
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle") Cursor cursor = db.query(TABLE_MOOD, new String[] { KEY_DATE,
                         KEY_MOODSTATE, KEY_COMMENT }, KEY_DATE + "=?",
@@ -88,7 +90,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Retrieves the last 8 moods of the database
      * @return A list of 8 Mood objects
      */
-    List<Mood> getLastMoods() {
+    public List<Mood> getLastMoods() {
         List<Mood> moodList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_MOOD + " ORDER BY date DESC " + "LIMIT 8";
@@ -116,7 +118,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Updating a mood in the database
      * @param mood Mood object
      */
-    void updateMood(Mood mood) {
+    public void updateMood(Mood mood) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, format.format(mood.getDate()));

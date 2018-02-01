@@ -1,4 +1,4 @@
-package thibault_roturier.moodtracker;
+package thibault_roturier.moodtracker.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +16,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import thibault_roturier.moodtracker.Database.DBHandler;
+import thibault_roturier.moodtracker.Models.Mood;
+import thibault_roturier.moodtracker.R;
+
 import static java.lang.Math.toIntExact;
 
 /**
  * Class to manage the history activity
  */
-public class History extends AppCompatActivity {
+public class A_History extends AppCompatActivity {
 
     // We retrieve today's date
     Date date = new Date();
