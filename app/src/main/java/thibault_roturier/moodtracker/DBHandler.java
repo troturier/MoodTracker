@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Class required for creation and access to the database
@@ -25,8 +26,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_DATE = "date";
     private static final String KEY_MOODSTATE = "moodState";
     private static final String KEY_COMMENT = "comment";
-    @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 
     DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,34 +82,6 @@ public class DBHandler extends SQLiteOpenHelper {
             e.printStackTrace();
         }}
         return mood;
-    }
-
-    /**
-     * Getting all moods of the database
-     * @return List of Mood objects
-     */
-    public List<Mood> getMoods() {
-        List<Mood> moodList = new ArrayList<>();
-        // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_MOOD;
-        SQLiteDatabase db = this.getWritableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Mood mood = new Mood();
-                try {
-                    mood.setDate(format.parse(cursor.getString(0)));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                mood.setMoodState(cursor.getInt(1));
-                mood.setComment(cursor.getString(2));
-                // Adding mood to list
-                moodList.add(mood);
-            } while (cursor.moveToNext());
-        }
-        return moodList;
     }
 
     /**
