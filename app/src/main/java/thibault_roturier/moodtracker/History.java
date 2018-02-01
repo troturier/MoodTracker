@@ -2,6 +2,7 @@ package thibault_roturier.moodtracker;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -76,7 +77,7 @@ public class History extends AppCompatActivity {
         ImageButton history_item_Ib = history_item.findViewById(R.id.history_item_Ib);
 
         // If there is no comment the ImageButton will not be displayed
-        if(mood.getComment() == null){
+        if(mood.getComment() == null || TextUtils.isEmpty(mood.getComment())){
             history_item_Ib.setVisibility(View.GONE);
         }else{
             // Add a listener to the button to display the comment via a toast message
@@ -162,10 +163,6 @@ public class History extends AppCompatActivity {
     public long daysDifference(Date startDate, Date endDate) {
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
-
-        System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
-        System.out.println("different : " + different);
 
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
