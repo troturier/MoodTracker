@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -62,11 +64,12 @@ public class A_MoodTracker extends AppCompatActivity {
             public void onPageSelected(int position) {
                 CurrMood.setMoodState(position);
                 db.updateMood(CurrMood);
+                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.swipe);
+                mp.start();
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
@@ -86,7 +89,7 @@ public class A_MoodTracker extends AppCompatActivity {
      */
     public void commentInput (View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Commentaire");
+        builder.setTitle(R.string.comment);
         final Mood mood = db.getMood(date);
 
         // Set up the input
@@ -95,16 +98,19 @@ public class A_MoodTracker extends AppCompatActivity {
         builder.setView(input);
 
         // Set up the buttons
-        builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.save_comment, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
                 mood.setComment(m_Text);
                 // Update the comment of the mood in the database
                 db.updateMood(mood);
+                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.comment);
+                mp.start();
+                Toast.makeText(getApplicationContext(), R.string.comment_saved, Toast.LENGTH_LONG).show();
             }
         });
-        builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

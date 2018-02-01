@@ -9,4 +9,8 @@
     <string name="spc_days">\u0020jours</string>
     <string name="days_ago_1">Il y a\u0020</string>
     <string name="comment_button">Comment button</string>
+    <string name="comment_saved">Commentaire enregistré !</string>
+    <string name="save_comment">VALIDER</string>
+    <string name="cancel">ANNULER</string>
+    <string name="comment">Commentaire</string>
 </resources>
