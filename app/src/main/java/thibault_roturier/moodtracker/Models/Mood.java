@@ -62,4 +62,21 @@ public class Mood {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    /**
+     * Return the number of days between two dates
+     * @param endDate End date
+     * @return a number of days (long)
+     */
+    public long daysDifference(Date endDate) {
+        //milliseconds
+        long different = endDate.getTime() - this.date.getTime();
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        return different / daysInMilli;
+    }
 }

@@ -48,7 +48,7 @@ public class A_History extends AppCompatActivity {
             // We go through the list of moods
             for(int i = 0; i<moods.size(); i++){
                 // We check that this is not the mood of today
-                if(daysDifference(moods.get(i).getDate(),date) != 0) {
+                if(moods.get(i).daysDifference(date) != 0) {
                     // We retrieve the next placeholder
                     String history_ph = "history_placeholder_" + String.valueOf(iLL);
                     int resID = getResources().getIdentifier(history_ph, "id", getPackageName());
@@ -135,7 +135,7 @@ public class A_History extends AppCompatActivity {
         }
 
         // We calculate the number of days between the date of the current mood and today
-        long daysDiff = daysDifference(mood.getDate(), date);
+        long daysDiff = mood.daysDifference(date);
 
         // We specify a different label depending on the number of days that have elapsed
         switch (toIntExact(daysDiff)){
@@ -156,23 +156,5 @@ public class A_History extends AppCompatActivity {
 
         // And we add this new element to the history activity corresponding placeholder
         history_place_holder.addView(history_item);
-    }
-
-    /**
-     * Return the number of days between two dates
-     * @param startDate Starting date
-     * @param endDate End date
-     * @return a number of days (long)
-     */
-    public long daysDifference(Date startDate, Date endDate) {
-        //milliseconds
-        long different = endDate.getTime() - startDate.getTime();
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        return different / daysInMilli;
     }
 }
