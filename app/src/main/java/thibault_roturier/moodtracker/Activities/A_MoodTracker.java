@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -32,8 +31,6 @@ public class A_MoodTracker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ImageView smileyIV = findViewById(R.id.smileyImage);
-        RelativeLayout background = findViewById(R.id.backgroundMain);
 
         // If this is the first time the application is launched today, we create a new line in the database
         if(db.getMood(date) == null) {
@@ -119,7 +116,7 @@ public class A_MoodTracker extends AppCompatActivity {
                 {
                     if(moodState > 0){
                         moodState = moodState - 1;
-                        Log.d("motion", "MoodState = " + moodState);
+                        moodStateChange(moodState);
                     }
                 }
 
@@ -128,7 +125,7 @@ public class A_MoodTracker extends AppCompatActivity {
                 {
                     if(moodState < 4){
                         moodState = moodState + 1;
-                        Log.d("motion", "MoodState = " + moodState);
+                        moodStateChange(moodState);
                     }
                 }
                 break;
@@ -137,6 +134,37 @@ public class A_MoodTracker extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Change the background color and smiley displayed on the main activity according to the mood state
+     * @param moodState A mood state id
+     */
+    public void moodStateChange (int moodState){
+        ImageView smileyIV = findViewById(R.id.smileyImage);
+        RelativeLayout background = findViewById(R.id.backgroundMain);
+
+        switch (moodState) {
+            case 0:
+                smileyIV.setImageResource(R.mipmap.smiley_sad);
+                background.setBackgroundColor(getResources().getColor(R.color.faded_red));
+                break;
+            case 1:
+                smileyIV.setImageResource(R.mipmap.smiley_disappointed);
+                background.setBackgroundColor(getResources().getColor(R.color.warm_grey));
+                break;
+            case 2:
+                smileyIV.setImageResource(R.mipmap.smiley_normal);
+                background.setBackgroundColor(getResources().getColor(R.color.cornflower_blue_65));
+                break;
+            case 3:
+                smileyIV.setImageResource(R.mipmap.smiley_happy);
+                background.setBackgroundColor(getResources().getColor(R.color.light_sage));
+                break;
+            case 4:
+                smileyIV.setImageResource(R.mipmap.smiley_super_happy);
+                background.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
+                break;
+            }
+    }
 }
 
 
