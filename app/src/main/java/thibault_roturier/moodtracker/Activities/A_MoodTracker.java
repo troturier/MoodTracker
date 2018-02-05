@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -20,11 +24,16 @@ public class A_MoodTracker extends AppCompatActivity {
 
     DBHandler db = new DBHandler(this);
     Date date = new Date();
+    int moodState = 3;
+    float x1,x2;
+    float y1, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImageView smileyIV = findViewById(R.id.smileyImage);
+        RelativeLayout background = findViewById(R.id.backgroundMain);
 
         // If this is the first time the application is launched today, we create a new line in the database
         if(db.getMood(date) == null) {
@@ -32,6 +41,7 @@ public class A_MoodTracker extends AppCompatActivity {
             db.addMood(mood);
         }
         final Mood CurrMood = db.getMood(date);
+        moodState = CurrMood.getMoodState();
 
     }
 
@@ -83,6 +93,49 @@ public class A_MoodTracker extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Detect common gestures performed on the screen
+     * @param touchevent A touch event
+     * @return Boolean
+     */
+    public boolean onTouchEvent(MotionEvent touchevent)
+    {
+        switch (touchevent.getAction())
+        {
+            // when user first touches the screen we get x and y coordinate
+            case MotionEvent.ACTION_DOWN:
+            {
+                x1 = touchevent.getX();
+                y1 = touchevent.getY();
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            {
+                x2 = touchevent.getX();
+                y2 = touchevent.getY();
+
+                // if UP to Down swipe event on screen
+                if (y1 < y2)
+                {
+                    if(moodState > 0){
+                        moodState = moodState - 1;
+                        Log.d("motion", "MoodState = " + moodState);
+                    }
+                }
+
+                // if Down to UP swipe event on screen
+                if (y1 > y2)
+                {
+                    if(moodState < 4){
+                        moodState = moodState + 1;
+                        Log.d("motion", "MoodState = " + moodState);
+                    }
+                }
+                break;
+            }
+        }
+        return false;
+    }
 
 }
 
