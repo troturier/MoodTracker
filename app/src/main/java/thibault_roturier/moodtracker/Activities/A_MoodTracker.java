@@ -205,7 +205,7 @@ public class A_MoodTracker extends AppCompatActivity {
     }
 
     /**
-     * Return the backgroundColor of a View
+     * Returns the backgroundColor of a View
      * @param view A view object
      * @return Color int
      */
@@ -219,7 +219,7 @@ public class A_MoodTracker extends AppCompatActivity {
     }
 
     /**
-     * Change the backgroundColor of a view with a smooth transition
+     * Changes the backgroundColor of a view with a smooth transition and plays a sound
      * @param background A view object
      * @param color Final color int
      */
@@ -230,6 +230,9 @@ public class A_MoodTracker extends AppCompatActivity {
         anim.setRepeatMode(ValueAnimator.REVERSE);
         anim.setDuration(1000);
         anim.start();
+        // Plays a transition sound
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.swipe);
+        mp.start();
     }
 }
 
