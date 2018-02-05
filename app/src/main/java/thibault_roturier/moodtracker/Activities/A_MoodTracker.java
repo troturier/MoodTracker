@@ -59,9 +59,9 @@ public class A_MoodTracker extends AppCompatActivity {
         });
 
         // Adding animations to the ImageSwitcher
-        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.fade_in);
+        Animation in = AnimationUtils.loadAnimation(this,R.anim.zoom_in);
         imsw.setInAnimation(in);
-        Animation out = AnimationUtils.loadAnimation(this,android.R.anim.fade_out);
+        Animation out = AnimationUtils.loadAnimation(this,R.anim.zoom_out);
         imsw.setOutAnimation(out);
 
         // We change the displayed mood according to the moodState variable
