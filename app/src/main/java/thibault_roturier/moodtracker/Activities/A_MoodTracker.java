@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.util.Date;
 
@@ -27,6 +31,7 @@ public class A_MoodTracker extends AppCompatActivity {
     float x1,x2;
     float y1, y2;
     private Mood CurrMood = new Mood();
+    ImageSwitcher imsw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,23 @@ public class A_MoodTracker extends AppCompatActivity {
         // We retrieve the mood of the day and assign mood state to the corresponding variable
         CurrMood = db.getMood(date);
         moodState = CurrMood.getMoodState();
+
+        // Setting the ImageSwitcher factory
+        imsw = findViewById(R.id.imageSwitcherMain);
+        imsw.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView imageView = new ImageView(getApplicationContext());
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                return imageView;
+            }
+        });
+
+        // Adding animations to the ImageSwitcher
+        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.fade_in);
+        imsw.setInAnimation(in);
+        Animation out = AnimationUtils.loadAnimation(this,android.R.anim.fade_out);
+        imsw.setOutAnimation(out);
 
         // We change the displayed mood according to the moodState variable
         moodStateChange(moodState);
@@ -150,29 +172,28 @@ public class A_MoodTracker extends AppCompatActivity {
      * @param moodState A mood state id
      */
     public void moodStateChange (int moodState){
-        ImageView smileyIV = findViewById(R.id.smileyImage);
         RelativeLayout background = findViewById(R.id.backgroundMain);
 
         // Definition of the smiley image and the background color of the activity according to the  moodState
         switch (moodState) {
             case 0:
-                smileyIV.setImageResource(R.mipmap.smiley_sad);
+                imsw.setImageResource(R.mipmap.smiley_sad);
                 background.setBackgroundColor(getResources().getColor(R.color.faded_red));
                 break;
             case 1:
-                smileyIV.setImageResource(R.mipmap.smiley_disappointed);
+                imsw.setImageResource(R.mipmap.smiley_disappointed);
                 background.setBackgroundColor(getResources().getColor(R.color.warm_grey));
                 break;
             case 2:
-                smileyIV.setImageResource(R.mipmap.smiley_normal);
+                imsw.setImageResource(R.mipmap.smiley_normal);
                 background.setBackgroundColor(getResources().getColor(R.color.cornflower_blue_65));
                 break;
             case 3:
-                smileyIV.setImageResource(R.mipmap.smiley_happy);
+                imsw.setImageResource(R.mipmap.smiley_happy);
                 background.setBackgroundColor(getResources().getColor(R.color.light_sage));
                 break;
             case 4:
-                smileyIV.setImageResource(R.mipmap.smiley_super_happy);
+                imsw.setImageResource(R.mipmap.smiley_super_happy);
                 background.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
                 break;
             }

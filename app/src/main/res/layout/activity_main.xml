@@ -16,14 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/smileyImage"
+        <ImageSwitcher
+            android:id="@+id/imageSwitcherMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/smiley_image"
-            app:srcCompat="@mipmap/smiley_happy" />
+            android:layout_centerVertical="true">
+
+        </ImageSwitcher>
+
     </RelativeLayout>
 
     <RelativeLayout
