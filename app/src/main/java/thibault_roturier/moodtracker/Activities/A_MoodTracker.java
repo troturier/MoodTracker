@@ -1,8 +1,13 @@
 package thibault_roturier.moodtracker.Activities;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -178,25 +183,53 @@ public class A_MoodTracker extends AppCompatActivity {
         switch (moodState) {
             case 0:
                 imsw.setImageResource(R.mipmap.smiley_sad);
-                background.setBackgroundColor(getResources().getColor(R.color.faded_red));
+                changeBackgroundColor(background, getResources().getColor(R.color.faded_red));
                 break;
             case 1:
                 imsw.setImageResource(R.mipmap.smiley_disappointed);
-                background.setBackgroundColor(getResources().getColor(R.color.warm_grey));
+                changeBackgroundColor(background, getResources().getColor(R.color.warm_grey));
                 break;
             case 2:
                 imsw.setImageResource(R.mipmap.smiley_normal);
-                background.setBackgroundColor(getResources().getColor(R.color.cornflower_blue_65));
+                changeBackgroundColor(background, getResources().getColor(R.color.cornflower_blue_65));
                 break;
             case 3:
                 imsw.setImageResource(R.mipmap.smiley_happy);
-                background.setBackgroundColor(getResources().getColor(R.color.light_sage));
+                changeBackgroundColor(background, getResources().getColor(R.color.light_sage));
                 break;
             case 4:
                 imsw.setImageResource(R.mipmap.smiley_super_happy);
-                background.setBackgroundColor(getResources().getColor(R.color.banana_yellow));
+                changeBackgroundColor(background, getResources().getColor(R.color.banana_yellow));
                 break;
             }
+    }
+
+    /**
+     * Return the backgroundColor of a View
+     * @param view A view object
+     * @return Color int
+     */
+    public static int getBackgroundColor(View view) {
+        Drawable drawable = view.getBackground();
+        if (drawable instanceof ColorDrawable) {
+            ColorDrawable colorDrawable = (ColorDrawable) drawable;
+            return colorDrawable.getColor();
+        }
+        return 0;
+    }
+
+    /**
+     * Change the backgroundColor of a view with a smooth transition
+     * @param background A view object
+     * @param color Final color int
+     */
+    public void changeBackgroundColor (View background, int color) {
+        ObjectAnimator anim = ObjectAnimator.ofInt(background, "backgroundColor", getBackgroundColor(background), color);
+        anim.setEvaluator(new ArgbEvaluator());
+        anim.setRepeatCount(0);
+        anim.setRepeatMode(ValueAnimator.REVERSE);
+        anim.setDuration(1000);
+        anim.start();
     }
 }
 
