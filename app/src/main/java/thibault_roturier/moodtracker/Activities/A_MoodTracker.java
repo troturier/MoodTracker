@@ -26,6 +26,7 @@ public class A_MoodTracker extends AppCompatActivity {
     int moodState = 3;
     float x1,x2;
     float y1, y2;
+    private Mood CurrMood = new Mood();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,12 @@ public class A_MoodTracker extends AppCompatActivity {
             Mood mood = new Mood(date, 3);
             db.addMood(mood);
         }
-        final Mood CurrMood = db.getMood(date);
+        // We retrieve the mood of the day and assign mood state to the corresponding variable
+        CurrMood = db.getMood(date);
         moodState = CurrMood.getMoodState();
 
+        // We change the displayed mood according to the moodState variable
+        moodStateChange(moodState);
     }
 
     /**
@@ -58,11 +62,10 @@ public class A_MoodTracker extends AppCompatActivity {
     public void commentInput (View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.comment);
-        final Mood mood = db.getMood(date);
 
         // Set up the input
         final EditText input = new EditText(this);
-        input.setText(mood.getComment());
+        input.setText(CurrMood.getComment());
         builder.setView(input);
 
         // Set up the buttons
@@ -70,9 +73,9 @@ public class A_MoodTracker extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = input.getText().toString();
-                mood.setComment(m_Text);
+                CurrMood.setComment(m_Text);
                 // Update the comment of the mood in the database
-                db.updateMood(mood);
+                db.updateMood(CurrMood);
                 // Play a sound when the user validate his comment
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.comment);
                 mp.start();
@@ -116,7 +119,11 @@ public class A_MoodTracker extends AppCompatActivity {
                 {
                     if(moodState > 0){
                         moodState = moodState - 1;
+                        // Changing the display accordingly
                         moodStateChange(moodState);
+                        // Updating the database
+                        CurrMood.setMoodState(moodState);
+                        db.updateMood(CurrMood);
                     }
                 }
 
@@ -125,7 +132,11 @@ public class A_MoodTracker extends AppCompatActivity {
                 {
                     if(moodState < 4){
                         moodState = moodState + 1;
+                        // Changing the display accordingly
                         moodStateChange(moodState);
+                        // Updating the database
+                        CurrMood.setMoodState(moodState);
+                        db.updateMood(CurrMood);
                     }
                 }
                 break;
@@ -142,6 +153,7 @@ public class A_MoodTracker extends AppCompatActivity {
         ImageView smileyIV = findViewById(R.id.smileyImage);
         RelativeLayout background = findViewById(R.id.backgroundMain);
 
+        // Definition of the smiley image and the background color of the activity according to the  moodState
         switch (moodState) {
             case 0:
                 smileyIV.setImageResource(R.mipmap.smiley_sad);
