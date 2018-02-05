@@ -1,15 +1,10 @@
 package thibault_roturier.moodtracker.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -17,16 +12,12 @@ import android.widget.Toast;
 
 import java.util.Date;
 
-import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 import thibault_roturier.moodtracker.Database.DBHandler;
-import thibault_roturier.moodtracker.Models.FragmentSmileyScreen;
 import thibault_roturier.moodtracker.Models.Mood;
 import thibault_roturier.moodtracker.R;
 
 public class A_MoodTracker extends AppCompatActivity {
 
-    FragmentPagerAdapter adapterViewPager;
-    @SuppressLint("SimpleDateFormat")
     DBHandler db = new DBHandler(this);
     Date date = new Date();
 
@@ -35,44 +26,13 @@ public class A_MoodTracker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final VerticalViewPager vpPager = findViewById(R.id.vpPager);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
-        vpPager.setAdapter(adapterViewPager);
-        vpPager.setCurrentItem(3);
-
-
         // If this is the first time the application is launched today, we create a new line in the database
         if(db.getMood(date) == null) {
-            Mood mood = new Mood(date, vpPager.getCurrentItem());
+            Mood mood = new Mood(date, 3);
             db.addMood(mood);
         }
         final Mood CurrMood = db.getMood(date);
 
-        // We define the state of mood that is displayed on the one that has already been registered in database
-        vpPager.setCurrentItem(CurrMood.getMoodState());
-
-        // We update the state of mood when the user performs a swipe on the screen
-        vpPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                CurrMood.setMoodState(position);
-                db.updateMood(CurrMood);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                CurrMood.setMoodState(position);
-                db.updateMood(CurrMood);
-                // Play a sound when the mood on the screen is changed
-                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.swipe);
-                mp.start();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
     }
 
     /**
@@ -121,46 +81,6 @@ public class A_MoodTracker extends AppCompatActivity {
         });
 
         builder.show();
-    }
-
-   public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 5;
-
-        MyPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        /**
-         * Returns total number of pages.
-         * @return int
-         */
-        @Override
-        public int getCount() {
-            return NUM_ITEMS;
-        }
-
-        /**
-         * Returns the fragment to display for a particular page.
-         * @param position Position of the Fragment in the PagerAdapter
-         * @return Fragment
-         */
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return FragmentSmileyScreen.newInstance(R.color.faded_red, R.mipmap.smiley_sad);
-                case 1:
-                    return FragmentSmileyScreen.newInstance(R.color.warm_grey, R.mipmap.smiley_disappointed);
-                case 2:
-                    return FragmentSmileyScreen.newInstance(R.color.cornflower_blue_65, R.mipmap.smiley_normal);
-                case 3:
-                    return FragmentSmileyScreen.newInstance(R.color.light_sage, R.mipmap.smiley_happy);
-                case 4:
-                    return FragmentSmileyScreen.newInstance(R.color.banana_yellow, R.mipmap.smiley_super_happy);
-                default:
-                    return null;
-            }
-        }
     }
 
 

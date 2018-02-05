@@ -6,23 +6,34 @@
     android:layout_height="match_parent"
     tools:context="thibault_roturier.moodtracker.Activities.A_MoodTracker">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/backgroundMain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/light_sage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <fr.castorflex.android.verticalviewpager.VerticalViewPager
-            android:id="@+id/vpPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </fr.castorflex.android.verticalviewpager.VerticalViewPager>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/smileyImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/smiley_image"
+            app:srcCompat="@mipmap/smiley_happy" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/base_RelativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/noteAdd_Ib"
@@ -33,8 +44,8 @@
             android:layout_marginStart="29dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/noteAddButton"
-            android:scaleType="fitCenter"
             android:onClick="commentInput"
+            android:scaleType="fitCenter"
             app:srcCompat="@mipmap/ic_note_add_black" />
 
         <ImageButton
@@ -47,8 +58,8 @@
             android:layout_marginEnd="32dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/historyButton"
-            android:scaleType="fitCenter"
             android:onClick="showHistory"
+            android:scaleType="fitCenter"
             app:srcCompat="@mipmap/ic_history_black" />
     </RelativeLayout>
 
