@@ -64,6 +64,7 @@ public class A_MoodTracker extends AppCompatActivity {
             public void onPageSelected(int position) {
                 CurrMood.setMoodState(position);
                 db.updateMood(CurrMood);
+                // Play a sound when the mood on the screen is changed
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.swipe);
                 mp.start();
             }
@@ -105,8 +106,10 @@ public class A_MoodTracker extends AppCompatActivity {
                 mood.setComment(m_Text);
                 // Update the comment of the mood in the database
                 db.updateMood(mood);
+                // Play a sound when the user validate his comment
                 MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.comment);
                 mp.start();
+                // Display a toast message
                 Toast.makeText(getApplicationContext(), R.string.comment_saved, Toast.LENGTH_LONG).show();
             }
         });
